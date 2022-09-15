@@ -6,12 +6,23 @@ const goods = [
 ];
 
 const renderGoodsItem = (title, price) => {
-  return `<div class="goods-item"><h3>${title}</h3><p>${price}</p></div>`;
+  return `<div class="goods-item">
+            <div class="goods-item_img_wrapper">
+              <img class="goods-item_img" src="img/${title}.png" alt="${title}">
+            </div>
+            <h3>${title}</h3>
+            <p>${price} $</p>
+            <div class="add_to_cart_wrapper">
+              <button class="add_to_cart">Добавить</button>
+            </div>
+          </div>`;
 };
 
 const renderGoodsList = (list) => {
-  let goodsList = list.map(item => renderGoodsItem(item.title, item.price));
-  document.querySelector('.goods-list').innerHTML = goodsList;
+  document.querySelector('.goods-list').innerHTML =
+    list.map(item =>
+      renderGoodsItem(item.title, item.price)
+    ).join('');
 }
 
 renderGoodsList(goods);
