@@ -1,23 +1,33 @@
-const goods = [
-  {id: 1, title: 'Shirt', price: 150},
-  {id: 2, title: 'Socks', price: 50},
-  {id: 3, title: 'Jacket', price: 350},
-  {id: 4, title: 'Shoes', price: 250},
-];
+const BASE_URL = "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses";
+const GOODS = "/catalogData.json";
+
+function maskGETRequest(url, callback) {
+  let xhr;
+  if (window.XMLHttpRequest) {
+    xhr = new XMLHttpRequest();
+  } else if (window.ActiveXObject) {
+    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      callback(xhr.responseText);
+    }
+  };
+  xhr.open('GET', url, true);
+  xhr.send();
+}
 
 class GoodsItem {
-  constructor({id, title, price}) {
-    this.id = id;
-    this.title = title;
+  constructor({id_product, product_name, price}) {
+    this.id = id_product;
+    this.title = product_name;
     this.price = price;
   }
 
   render() {
     return `
     <div class="goods-item" data-id="${this.id}">
-      <div class="goods-item_img_wrapper">
-        <img class="goods-item_img" src="img/${this.title}.png" alt="${this.title}">
-      </div>
       <h3>${this.title}</h3>
       <p>${this.price} $</p>
       <div class="add_to_cart_wrapper">
@@ -31,8 +41,11 @@ class GoodsItem {
 class GoodsList {
   items = [];
 
-  fetchGoods() {
-    this.items = goods;
+  fetchGoods(callback) {
+    maskGETRequest(`${BASE_URL}${GOODS}`, (goods) => {
+      this.items = JSON.parse(goods);
+      callback();
+    });
   }
 
   render() {
@@ -102,6 +115,7 @@ class Cart {
 }
 
 const goodsList = new GoodsList();
-goodsList.fetchGoods();
-goodsList.render();
-const cart = new Cart();
+goodsList.fetchGoods(() => {
+  goodsList.render();
+});
+// const cart = new Cart();
