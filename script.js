@@ -1,21 +1,15 @@
 const BASE_URL = "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses";
 const GOODS = "/catalogData.json";
 
-function maskGETRequest(url, callback) {
-  let xhr;
-  if (window.XMLHttpRequest) {
-    xhr = new XMLHttpRequest();
-  } else if (window.ActiveXObject) {
-    xhr = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-      callback(xhr.responseText);
-    }
-  };
-  xhr.open('GET', url, true);
-  xhr.send();
+function maskGETRequest(url) {
+  return new Promise((resolve) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      resolve(JSON.parse(xhr.response));
+    };
+    xhr.open('GET', url, true);
+    xhr.send();
+  })
 }
 
 class GoodsItem {
@@ -41,10 +35,12 @@ class GoodsItem {
 class GoodsList {
   items = [];
 
-  fetchGoods(callback) {
-    maskGETRequest(`${BASE_URL}${GOODS}`, (goods) => {
-      this.items = JSON.parse(goods);
-      callback();
+  fetchGoods() {
+    return new Promise((resolve) => {
+      maskGETRequest(`${BASE_URL}${GOODS}`).then((data) => {
+        this.items = data;
+        resolve();
+      });
     });
   }
 
@@ -115,7 +111,5 @@ class Cart {
 }
 
 const goodsList = new GoodsList();
-goodsList.fetchGoods(() => {
-  goodsList.render();
-});
+goodsList.fetchGoods().then(() => goodsList.render());
 // const cart = new Cart();
