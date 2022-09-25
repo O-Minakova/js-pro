@@ -1,8 +1,15 @@
 // 1) Какие виды областей видимости вы знаете? Написать ответ ниже
+/*
+1. Глобальная область видимости
+2. Локальная область видимости (область видимости функции)
+3. Область видимости блока
+4. Область видимости try-catch
+5. Блок видимости eval
+ */
 
 
 // 2) Исправьте код так, чтобы в консоль выводились числа от 0 до 10
-for (var i = 0; i <= 10; i++) {
+for (let i = 0; i <= 10; i++) {
   setTimeout(() => {
     console.log(i);
   }, 0)
@@ -10,10 +17,10 @@ for (var i = 0; i <= 10; i++) {
 
 
 // 3) Исправьте код так, чтобы в консоль выводилось "John"
-var firstName = "Elena"
+var firstName = "Elena";
 const obj = {
   firstName: 'John',
-  sayFirstName: () => {
+  sayFirstName: function() {
     console.log(this.firstName)
   }
 }
@@ -31,5 +38,5 @@ function getArrowFunction() {
   }
 }
 
-const arrowFunction = getArrowFunction(user);
+const arrowFunction = getArrowFunction.call(user);
 arrowFunction();
