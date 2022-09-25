@@ -36,11 +36,8 @@ class GoodsList {
   items = [];
 
   fetchGoods() {
-    return new Promise((resolve) => {
-      makeGETRequest(`${BASE_URL}${GOODS}`).then((data) => {
-        this.items = data;
-        resolve();
-      });
+    return makeGETRequest(`${BASE_URL}${GOODS}`).then((data) => {
+      this.items = data;
     });
   }
 
