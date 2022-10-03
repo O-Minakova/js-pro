@@ -15,15 +15,13 @@ function makeGETRequest(url) {
 const app = new Vue({
   el: "#root",
   data: {
-    isShimmerVisible: true,
     goods: [],
     search: "",
     isCartVisible: false
   },
   mounted() {
     setTimeout(() => makeGETRequest(`${BASE_URL}${GOODS}`)
-      .then((data) => this.goods = data)
-      .then(() => this.isShimmerVisible = false),
+      .then((data) => this.goods = data),
       400)
   },
   computed: {

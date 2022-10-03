@@ -47,7 +47,7 @@
   </header>
   <main>
     <div class="goods-list_wrapper">
-      <div class="shimmer" v-if="isShimmerVisible">Нет данных</div>
+      <div class="shimmer" v-if="!filteredGoods.length">Нет данных</div>
       <div class="goods-list">
         <div class="goods-item" v-bind:data-id="item.id_product" v-for="item in filteredGoods">
           <h3>{{item.product_name}}</h3>
