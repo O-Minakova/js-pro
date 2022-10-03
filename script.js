@@ -26,10 +26,9 @@ const app = new Vue({
   },
   computed: {
     filteredGoods() {
-      return this.goods.filter((item) => {
-        const regExp = new RegExp(`.*${this.search.toLowerCase()}.*`);
-        return regExp.test(item.product_name.toLowerCase());
-      });
+      return this.goods.filter((item) =>
+        new RegExp(`.*${this.search.toLowerCase()}.*`)
+          .test(item.product_name.toLowerCase()))
     }
   },
   methods: {
