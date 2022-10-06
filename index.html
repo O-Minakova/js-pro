@@ -5,17 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>eShop</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
 </head>
 <body>
-<header>
-  <button class="cart-button" type="button">Корзина</button>
-</header>
-<main>
-  <div class="goods-list_wrapper">
-    <div class="goods-list"></div>
-  </div>
-</main>
+<div id="root">
+  <header>
+    <h1>eShop</h1>
+    <div class="header-container">
+      <div class="search">
+        <input type="text" class="goods-search" v-model="search"/>
+      </div>
+      <div class="cart-wrapper">
+        <button class="cart-button" type="button" @click="toggleCartVisibility">Корзина</button>
+        <div class="basket" v-if="isCartVisible">
+          <div class="basketClose-wrapper">
+            <svg @click="toggleCartVisibility" width="24px" height="24px" viewPort="0 0 16 16" version="1.1"
+                 xmlns="http://www.w3.org/2000/svg">
+              <line x1="1" y1="16"
+                    x2="16" y2="1"
+                    stroke="black"
+                    stroke-width="2"/>
+              <line x1="1" y1="1"
+                    x2="16" y2="16"
+                    stroke="black"
+                    stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="basketRow basketHeader">
+            <div>Название товара</div>
+            <div>Количество</div>
+            <div>Цена за шт.</div>
+            <div>Итого</div>
+          </div>
+          <div class="basketTotal">
+            Товаров в корзине на сумму:
+            $<span class="basketTotalValue">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="goods-list_wrapper">
+      <div class="shimmer" v-if="!filteredGoods.length">Нет данных</div>
+      <div class="goods-list">
+        <div class="goods-item" v-bind:data-id="item.id_product" v-for="item in filteredGoods">
+          <h3>{{item.product_name}}</h3>
+          <p>{{item.price}} $</p>
+          <div class="add_to_cart_wrapper">
+            <button class="add_to_cart">Добавить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
 <script src="script.js"></script>
-<script src="index.js"></script>
 </body>
 </html>

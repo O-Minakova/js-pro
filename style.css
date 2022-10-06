@@ -5,11 +5,96 @@
 
 header {
     display: flex;
-    flex-direction: column;
-    align-items: end;
+    flex-direction: row;
+    justify-content: space-between;
     padding: 12px;
     background-color: #EBF3FB;
     margin-bottom: 24px;
+}
+
+.header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search {
+    margin-right: 20px;
+}
+
+.goods-search {
+    font-size: 16px;
+    letter-spacing: 0.04em;
+    border-radius: 15px;
+    padding: 6px 22px;
+    border: 1px solid;
+}
+
+.shimmer {
+    font-size: 26px;
+    letter-spacing: 0.04em;
+}
+
+.cart-wrapper {
+    position: relative;
+}
+
+.basket {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    top: 37px;
+    box-sizing: border-box;
+    padding: 16px 12px 16px;
+    box-shadow: 5px 5px 12px 4px rgba(16, 112, 177, 0.1);
+    border-radius: 10px;
+    background: #FFFFFF;
+    border: 1px solid #ebebeb;
+    font-size: 14px;
+}
+
+.basketClose-wrapper {
+    display: flex;
+    justify-content: end;
+}
+
+.basketClose-wrapper svg {
+    cursor: pointer;
+}
+
+.basketClose-wrapper svg:hover line {
+    stroke: #5A98D0;
+}
+
+@media (min-width: 340px) {
+    .basket {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 552px) {
+    .basket {
+        width: 540px;
+    }
+}
+
+.basketRow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 10px;
+}
+
+.basketHeader {
+    font-weight: bold;
+}
+
+.basketTotal {
+    font-weight: bold;
+    text-align: right;
 }
 
 .cart-button {
