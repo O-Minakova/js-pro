@@ -184,3 +184,24 @@ header {
 .add_to_cart:hover {
     box-shadow: 0 0 6px 2px rgba(53, 110, 173, 0.5);
 }
+
+.notification {
+    background-color: red;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-top: -24px;
+    margin-bottom: 24px;
+    border: 1px solid black;
+}
+
+.notification h4 {
+    text-align: center;
+    font-size: 18px;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+    opacity: 0;
+}
