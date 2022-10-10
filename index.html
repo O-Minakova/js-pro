@@ -16,7 +16,6 @@
       <search_component v-model="search"></search_component>
       <div class="cart-wrapper">
         <button class="cart-button" type="button" @click="toggleCartVisibility">Корзина</button>
-        <goods_cart v-if="isCartVisible" @close="toggleCartVisibility"></goods_cart>
       </div>
     </div>
   </header>
@@ -31,6 +30,7 @@
       </div>
     </div>
   </main>
+  <goods_cart v-if="isCartVisible" @close="toggleCartVisibility" ref="cart"></goods_cart>
 </div>
 </body>
 </html>
