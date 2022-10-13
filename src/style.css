@@ -47,6 +47,21 @@ header {
     position: relative;
 }
 
+.cart-wrapper span {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    color: white;
+    background: #f16d7f;
+    border-radius: 50%;
+    position: absolute;
+    text-align: center;
+    right: -6px;
+    top: -6px;
+    font-size: 16px;
+    line-height: 24px;
+}
+
 .fixed-area {
     position: fixed;
     width: 100%;

@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>eShop</title>
-  <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
-  <script src="script.js"></script>
 </head>
 <body>
 <div id="root">
@@ -15,7 +13,9 @@
     <div class="header-container">
       <search_component v-model="search"></search_component>
       <div class="cart-wrapper">
-        <button class="cart-button" type="button" @click="toggleCartVisibility">Корзина</button>
+        <button class="cart-button" type="button"
+                @click="toggleCartVisibility">Корзина</button>
+        <span id="basketCount">{{ cartCount }}</span>
       </div>
     </div>
   </header>
@@ -26,11 +26,22 @@
     <div class="goods-list_wrapper">
       <div class="shimmer" v-if="!filteredItems.length">Нет данных</div>
       <div class="goods-list">
-        <goods_item v-for="item in filteredItems" :key="item.id_product" :item="item"></goods_item>
+        <goods_item
+                v-for="item in filteredItems"
+                :key="item.id_product"
+                :item="item"
+                @add="addGood"
+        ></goods_item>
       </div>
     </div>
   </main>
-  <goods_cart v-if="isCartVisible" @close="toggleCartVisibility" ref="cart"></goods_cart>
+  <goods_cart
+          v-if="isCartVisible"
+          @close="toggleCartVisibility"
+          :items="cartItems"
+          @add-cart-item="addGood"
+          @del-cart-item="deleteGood"
+  ></goods_cart>
 </div>
 </body>
 </html>
