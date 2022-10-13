@@ -34,19 +34,19 @@ function init() {
         }).catch(() => this.showError());
       },
       addGood(goodId) {
-        servicePost(GET_BASKET_GOODS_ITEMS, {id: goodId}).then((result) =>
-          this.cartItems = result
-        ).then(() => this.updateCartCount());
+        servicePost(GET_BASKET_GOODS_ITEMS, {id: goodId}).then((result) => {
+          this.cartItems = result;
+          this.updateCartCount(result);
+        });
       },
       deleteGood(goodId) {
-        serviceDelete(GET_BASKET_GOODS_ITEMS, {id: goodId}).then((result) =>
-          this.cartItems = result
-        ).then(() => this.updateCartCount());
+        serviceDelete(GET_BASKET_GOODS_ITEMS, {id: goodId}).then((result) => {
+          this.cartItems = result;
+          this.updateCartCount(result);
+        });
       },
-      updateCartCount() {
-        service(GET_BASKET_GOODS_ITEMS).then((cartItems) => {
-          this.cartCount = cartItems.reduce((acc, i) => acc + i.count, 0)
-        })
+      updateCartCount(cartItems) {
+        this.cartCount = cartItems.reduce((acc, i) => acc + i.count, 0);
       }
     },
     watch: {
@@ -60,7 +60,9 @@ function init() {
     },
     mounted() {
       setTimeout(() => this.fetchGoods(),400)
-      this.updateCartCount();
+      service(GET_BASKET_GOODS_ITEMS).then((cartItems) => {
+        this.updateCartCount(cartItems);
+      })
     }
   })
 }
